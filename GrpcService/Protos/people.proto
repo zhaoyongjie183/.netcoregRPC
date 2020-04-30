@@ -1,0 +1,30 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GrpcService";
+
+message PeopleModel {
+  string name = 1;
+  int32 age=2;
+  int32 id=3;
+}
+
+message PeoPleNoRequest{
+    int32 id=1;
+}
+
+message PeopleAllRequest{
+}
+
+message PeopleNoResponse{
+    PeopleModel people=1;
+}
+
+service PeoPleService {
+  // Sends a greeting
+  //一元消息
+  rpc GetPeoPleNo (PeoPleNoRequest) returns (PeopleNoResponse);
+
+ // rpc GetPeoPleAll (PeopleAllRequest) returns (stream PeopleNoResponse);
+
+ // rpc SaveAll(stream PeopleNoResponse) returns (stream PeopleNoResponse);
+}
