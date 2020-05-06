@@ -23,6 +23,8 @@ service PeoPleService {
   // Sends a greeting
   //一元消息
   rpc GetPeoPleNo (PeoPleNoRequest) returns (PeopleNoResponse);
-  rpc GetPeoPleAll (PeopleAllRequest) returns (stream PeopleNoResponse);
-  rpc SaveAll(stream PeopleNoResponse) returns (stream PeopleNoResponse);
+
+ // rpc GetPeoPleAll (PeopleAllRequest) returns (stream PeopleNoResponse);
+
+ // rpc SaveAll(stream PeopleNoResponse) returns (stream PeopleNoResponse);
 }

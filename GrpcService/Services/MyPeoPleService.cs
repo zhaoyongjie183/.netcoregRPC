@@ -11,15 +11,29 @@ namespace GrpcService
 {
     public class MyPeoPleService :PeoPleService.PeoPleServiceBase
     {
-        public override Task<PeopleNoResponse> GetPeoPleNo(PeoPleNoRequest request, ServerCallContext context)
+        public override  Task<PeopleNoResponse> GetPeoPleNo(PeoPleNoRequest request, ServerCallContext context)
         {
             var c = InMemoryData.peopleModels.Where(x => x.Id == request.Id).FirstOrDefault();
 
-            PeopleNoResponse peopleNoResponse = new PeopleNoResponse();
+            if (c != null)
+            {
 
-            peopleNoResponse.People = c;
+                PeopleNoResponse peopleNoResponse = new PeopleNoResponse();
 
-           return  Task.FromResult(peopleNoResponse);
+                peopleNoResponse.People = c;
+
+                return Task.FromResult(peopleNoResponse);
+            }
+
+            throw new Exception("未查询到数据");
+        }
+
+        public override async Task GetPeoPleAll(PeopleAllRequest request, IServerStreamWriter<PeopleNoResponse> responseStream, ServerCallContext context)
+        {
+            foreach (var item in InMemoryData.peopleModels)
+            {
+               await responseStream.WriteAsync(new PeopleNoResponse() { People = item });
+            }
         }
     }
 }
